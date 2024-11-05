@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Wegis</title>
+    <!-- LEAFLET CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <!-- LEAFLET JAVASCRIPT -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        // LOKASI KAJIAN
+        var map = L.map('map').setView([-5.367016, 105.317890], 15);
+
+        // BASEMAP OPENSTREETMAP
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+        osm.addTo(map);
+
+        // BASEMAP ESRI
+        var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        // MARKER POSISI GEDUNG DAN OBJEK
+        var GedungLabtek3 = L.marker([-5.360351, 105.309126]).bindPopup("Gedung Labtek 3").addTo(map);
+        var GedungGku1 = L.marker([-5.360913, 105.310357]).bindPopup("Gedung GKU 1").addTo(map);
+        var Embunge = L.marker([-5.370183, 105.310318]).bindPopup("Embunge").addTo(map);
+        var Labtek1 = L.marker([-5.360281, 105.310205]).bindPopup("Labtek 1").addTo(map);
+        var GedungGku2 = L.marker([-5.360281, 105.313809]).bindPopup("Gedung GKU 2").addTo(map);
+        var GedungA = L.marker([-5.357928, 105.314411]).bindPopup("Gedung A").addTo(map);
+        var GedungB = L.marker([-5.357940, 105.315298]).bindPopup("Gedung B").addTo(map);
+        var GedungE = L.marker([-5.359997, 105.315528]).bindPopup("Gedung E").addTo(map);
+
+        // BUNDARAN
+        var bundaran1 = L.circle([-5.363156, 105.312634], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 20
+        }).bindPopup("Bundaran A").addTo(map);
+
+        var bundaran2 = L.circle([-5.360813, 105.314847], {
+            color: 'green',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 35
+        }).bindPopup("Bundaran B").addTo(map);
+
+        // POLIGON BANGUNAN GEDUNG F
+        var polygon = L.polygon([
+            [-5.359799, 105.315831],
+            [-5.359957, 105.315831],
+            [-5.359957, 105.315571],
+            [-5.360474, 105.315571],
+            [-5.360474, 105.315401],
+            [-5.359635, 105.315401],
+            [-5.359635, 105.315571],
+            [-5.359799, 105.315571]
+        ]).bindPopup("Gedung F").addTo(map);
+
+        // Layer Control
+        var baseMaps = {
+            "OpenStreetMap": osm,
+            "ESRI World Imagery": Esri_WorldImagery
+        };
+
+        var overlayMaps = {
+            "Gedung Labtek 3": GedungLabtek3,
+            "Gedung GKU 1": GedungGku1,
+            "Embunge": Embunge,
+            "Bundaran A": bundaran1,
+            "Bundaran B": bundaran2,
+            "Gedung F": polygon,
+            "Labtek 1": Labtek1,
+            "Gedung GKU 2": GedungGku2,
+            "Gedung A": GedungA,
+            "Gedung B": GedungB,
+            "Gedung E": GedungE
+        };
+
+        L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+    </script>
+</body>
+</html>
